@@ -1,0 +1,363 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  background-color: black;
+  color: #15FF00;
+  min-height: 100vh;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+      padding: 4rem 2rem;
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+}
+
+.progress-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.progress-block {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  flex-shrink: 0;
+  background-color: rgba(21, 255, 0, 0.2);
+  border: 1px solid rgba(21, 255, 0, 0.3);
+}
+
+.progress-block.filled {
+  background: linear-gradient(145deg, #15FF00, #13E600, #11CC00);
+  box-shadow: 0 0 8px #15FF00,
+              0 0 12px rgba(21, 255, 0, 0.6);
+  border: 1px solid rgba(21, 255, 0, 0.6);
+}
+
+.progress-text {
+  font-size: 24px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 640px) {
+  .progress-text {
+      font-size: 28px;
+  }
+}
+
+.task-input {
+  width: 100%;
+  color: rgba(128, 128, 128, 0.7);
+  font-size: 24px;
+  padding: 0;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border-bottom: 1px solid #15FF00;
+  padding-bottom: 4px;
+}
+
+.task-input::placeholder {
+  color: rgba(128, 128, 128, 0.7);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 800px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: #15FF00;
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform-origin: top;
+}
+
+.task-item.new-item {
+  animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.task-item.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+@media (min-width: 640px) {
+  .task-item {
+      font-size: 28px;
+  }
+}
+
+.delete-btn {
+  position: absolute;
+  left: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #15FF00;
+  cursor: pointer;
+  opacity: 0;
+  font-size: 24px;
+  padding: 0 8px;
+}
+
+.task-item:hover .delete-btn {
+  opacity: 1;
+}
+
+@media (min-width: 640px) {
+  .task-input,
+  .task-item,
+  .delete-btn {
+      font-size: 28px;
+  }
+}
+
+#matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.task-item.urgent {
+  color: #ffeb3b !important;
+}
+
+.task-item.urgent.completed {
+  color: #665c17 !important;
+}
+
+.task-item.important {
+  color: #FFD700;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.shortcut-hint {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.attribution {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.attribution a {
+  color: #15FF00;
+  text-decoration: none;
+}
+
+.attribution a:hover {
+  text-decoration: underline;
+}
+
+.ghost-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(128, 128, 128, 0.5);
+  pointer-events: none;
+  font-size: 24px;
+  z-index: 0;
+  width: 100%;
+  padding: inherit;
+}
+
+@media (min-width: 640px) {
+  .ghost-text {
+      font-size: 28px;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 48px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px #15FF00, 0 0 20px rgba(21, 255, 0, 0.2);
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+@media (min-width: 640px) {
+  .title {
+      font-size: 64px;
+  }
+  
+  .description {
+      font-size: 18px;
+  }
+}
+
+.task-input::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+  color: #15FF00;
+  animation-play-state: paused;
+}
+
+.task-input:not(:focus)::after {
+  animation-play-state: running;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-top: 3rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.title {
+  font-size: 72px;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 15px #15FF00, 0 0 25px rgba(21, 255, 0, 0.2);
+}
+
+.description {
+  font-size: 20px;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.8rem 1.5rem;
+  background: rgba(0, 255, 0, 0.2);
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding: 1rem 2rem;
+  font-size: 18px;
+  margin-bottom: 3rem;
+  background: rgba(0, 255, 0, 0.15);
+}
+
+.chrome-icon {
+  font-size: 1.2em;
+}
+
+.download-button:hover {
+  background: rgba(0, 255, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.download-button:active {
+  transform: translateY(0);
+}
+
+.main-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.progress-section {
+  margin-bottom: 4rem;
+}
+
+.task-section {
+  width: 100%;
+}
+
+.task-input {
+  font-size: 28px;
+  margin-bottom: 2rem;
+}
+
+.task-list {
+  gap: 1.5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 48px;
+  }
+  
+  .description {
+    font-size: 16px;
+  }
+  
+  .progress-block {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  .task-input,
+  .task-item {
+    font-size: 20px;
+  }
+}
