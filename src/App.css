@@ -45,14 +45,15 @@ body {
   min-height: 60px;
   flex-shrink: 0;
   background-color: rgba(21, 255, 0, 0.2);
-  border: 1px solid rgba(21, 255, 0, 0.3);
+  border: none;
 }
 
 .progress-block.filled {
-  background: linear-gradient(145deg, #15FF00, #13E600, #11CC00);
-  box-shadow: 0 0 8px #15FF00,
-              0 0 12px rgba(21, 255, 0, 0.6);
-  border: 1px solid rgba(21, 255, 0, 0.6);
+  background-color: #15FF00;
+  box-shadow: 0 0 10px #15FF00,
+              0 0 40px #15FF00,
+              0 0 50px rgba(21, 255, 0, 0.2);
+  border: none;
 }
 
 .progress-text {
@@ -359,5 +360,11 @@ body {
   .task-input,
   .task-item {
     font-size: 20px;
+  }
+  
+  .progress-block.filled {
+    box-shadow: 0 0 8px #15FF00,
+                0 0 32px #15FF00,
+                0 0 40px rgba(21, 255, 0, 0.2);
   }
 }
